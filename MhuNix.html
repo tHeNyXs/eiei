@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MhuNix</title>
+  <style>
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+
+      /* 🌸 พื้นหลัง */
+      background-image: url("img/bg.jpg"); /* ← เปลี่ยนรูปตรงนี้ */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ff9acb, #b89bff);
+      color: white;
+      padding: 14px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .chat {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      backdrop-filter: blur(6px);
+    }
+
+    .msg {
+      max-width: 72%;
+      padding: 12px 16px;
+      border-radius: 18px;
+      line-height: 1.5;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: pop 0.2s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .phoenix {
+      background: #ffffffcc;
+      align-self: flex-start;
+      border-top-left-radius: 6px;
+    }
+
+    .jan {
+      background: #ffd6e8;
+      align-self: flex-end;
+      border-top-right-radius: 6px;
+    }
+
+    footer {
+      padding: 12px;
+      background: #ffffffcc;
+      backdrop-filter: blur(6px);
+      border-top: 1px solid #eee;
+    }
+
+    .choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    button {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff8fb1, #ffb3d9);
+      color: white;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: transform 0.15s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    img {
+      max-width: 200px;
+      border-radius: 14px;
+      margin-top: 4px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      align-self: flex-start;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    💙 MhuNix
+  </header>
+
+  <div class="chat" id="chat">
+    <div class="msg phoenix">หมูแจน เค้าต้องไปเขาชนไก่อะ อาจจะไม่ได้ตอบนะะ ร้ากหมูแจนเสมอ🐷😘</div>
+  </div>
+
+  <footer>
+    <div class="choices">
+        <button onclick="sendJan('มอนิ่งงง')">มอนิ่งงง</button>
+      <button onclick="sendJan('คิดถึงจังเยย')">คิดถึงจังเยย</button>
+      <button onclick="sendJan('ทำอะไรอยู่อะะ')">ทำอะไรอยู่อะะ</button>
+      <button onclick="sendJan('วันนี้เหนื่อยมากเลยอะ เรียนก้เยอะะ')">วันนี้เหนื่อยมากเลยอะ เรียนก้เยอะะ</button>
+      <button onclick="sendJan('ดูแลตัวเองดีๆนะะ')">ดูแลตัวเองดีๆนะะ</button>
+      <button onclick="sendJan('รักนะะ')">รักนะะ</button>
+      <button onclick="sendJan('ฝันดีนะะ')">ฝันดีนะะ</button>
+    </div>
+  </footer>
+
+  <script>
+    const chat = document.getElementById('chat');
+
+    function addMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.className = `msg ${sender}`;
+      msg.textContent = text;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function sendJan(text) {
+      addMessage(text, 'jan');
+      setTimeout(() => replyPhoenix(text), 700);
+    }
+
+    function replyPhoenix(janText) {
+      let reply = 'คิดถึงเหมือนกันนะ 💙';
+      let imageSrc = null;
+
+      if (janText.includes('มอนิ่ง')) {
+        reply = 'มอนิ่งค้าบหมูุ ขอให้วันนี้เป็นวันที่ดีนะะ'; 
+        imageSrc = 'img/morning.jpg';
+      }
+      else if (janText.includes('คิดถึง')) {
+        reply = 'หนิกก้คิดถึงแจนมากเหมือนกัน อดใจรอหน่อยนะะ เดะวันอังคารเค้าก้กลับมาแล้ววว อิอิ😊😊';
+        imageSrc = 'img/missyou.jpg';
+      }
+      else if (janText.includes('ทำอะไร')) {
+        reply = 'ตอนนี้เค้ากำลังฝึกเปนชายชาติทหารอย่างจริงจัง😮‍💨😮‍💨 อาจจะไม่ค่อยได้ทักไปนะะนะะ ต้องเซฟแบตด้วย เอาพาวเวอร์แบงค์มาสองอันน คิดถึงแจนมากกๆๆๆๆ เดะถ้าเค้าว่างๆ จะทักไปนะะ';
+        imageSrc = 'img/solder.jpg';
+      }
+      else if (janText.includes('เหนื่อย')) {
+        reply = 'สู้ๆคับบหมู เค้าเป็นกำลังใจให้้ ถึงแม้จะตัวจะไม่อยู่ก้ตามม ร้ากแจนนะะ😍😘🐷';
+        imageSrc = 'img/cheerup.jpg';
+      }
+      else if (janText.includes('ดูแล')) {
+        reply = 'ค้าบบหมู ขอบคุนที่เปนห่วงง เค้าจะดูแลตัวเองดีๆนะะะ ร้ากหมูแจนมากๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆ🐷❤️';
+        imageSrc = 'img/thanks.jpg';
+      }
+      else if (janText.includes('ฝันดี')) {
+        reply = 'ฝันดีเหมือนกันคับบหมูแจนน ขอให้นอนหลับฝันดีนะอ้วนนๆ 😴💤';
+        imageSrc = 'img/goodnight.jpg';
+      }
+      else if (janText.includes('รัก')) {
+        reply = 'หนิกก้รักหมูแจนมากเหมือนกันนะะะ จุ้บบๆ😘❤️';
+        imageSrc = 'img/love.jpg';
+      }
+      addMessage(reply, 'phoenix');
+
+      if (imageSrc) {
+        const img = document.createElement('img');
+        img.src = imageSrc;
+        img.style.maxWidth = '200px';
+        img.style.borderRadius = '12px';
+        img.style.alignSelf = 'flex-start';
+        chat.appendChild(img);
+        chat.scrollTop = chat.scrollHeight;
+        }
+    }
+  </script>
+</body>
+</html>
